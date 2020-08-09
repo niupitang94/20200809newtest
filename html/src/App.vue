@@ -1,32 +1,46 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    {{ msg }}
+    <input type="text" v-model="info" />
+    <button @click="handleClick()">添加</button>
+    <ul>
+      <todo-item v-for="(item, index) in list" :key="index">
+        <template v-slot:item="itemColor">
+          <span
+            :style="{
+              fontSize: '20px',
+              color: itemColor.checked ? 'red' : 'blue'
+            }"
+            >{{ item }}</span
+          >
+        </template>
+      </todo-item>
+    </ul>
+    <router-view></router-view>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import TodoItem from "./components/Todoitem";
+export default {
+  name: "app",
+  components: {
+    TodoItem
+  },
+  data() {
+    return {
+      msg: "hello",
+      info: null,
+      list: []
+    };
+  },
+  methods: {
+    handleClick() {
+      console.log(this.info);
+      this.list.push(this.info);
+      this.info = "";
     }
   }
-}
-</style>
+};
+</script>
+<style lang="scss"></style>
