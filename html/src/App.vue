@@ -16,16 +16,19 @@
         </template>
       </todo-item>
     </ul>
+    <event-demo :name="this.msg"></event-demo>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 import TodoItem from "./components/Todoitem";
+import EventDemo from "./views/EventDemo";
 export default {
   name: "app",
   components: {
-    TodoItem
+    TodoItem,
+    EventDemo
   },
   data() {
     return {
